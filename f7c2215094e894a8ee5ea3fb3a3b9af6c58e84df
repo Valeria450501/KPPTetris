@@ -73,6 +73,53 @@
       "revId": "f7c2215094e894a8ee5ea3fb3a3b9af6c58e84df",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9b358b_982f5ba1",
+        "filename": "Tetris/src/Windows/AuthorizationWindow.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1007753
+      },
+      "writtenOn": "2016-03-27T17:07:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da9b358b_b8921f56",
+      "range": {
+        "startLine": 19,
+        "startChar": 73,
+        "endLine": 19,
+        "endChar": 86
+      },
+      "revId": "f7c2215094e894a8ee5ea3fb3a3b9af6c58e84df",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da9b358b_b8221fb8",
+        "filename": "Tetris/src/Windows/AuthorizationWindow.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1007753
+      },
+      "writtenOn": "2016-03-27T17:07:03Z",
+      "side": 1,
+      "message": "не забудь,что пароль отсюда ты будешь извлекать в виде чаровского массива,и тебе нужно будет перегнать его в String",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "f7c2215094e894a8ee5ea3fb3a3b9af6c58e84df",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
