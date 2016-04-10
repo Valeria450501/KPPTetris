@@ -100,6 +100,30 @@
     },
     {
       "key": {
+        "uuid": "da9b358b_98063b1f",
+        "filename": "Tetris/src/Windows/AuthorizationWindow.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1007753
+      },
+      "writtenOn": "2016-04-10T17:08:03Z",
+      "side": 1,
+      "message": "Сорри,это я случайно",
+      "parentUuid": "da9b358b_982f5ba1",
+      "range": {
+        "startLine": 19,
+        "startChar": 73,
+        "endLine": 19,
+        "endChar": 86
+      },
+      "revId": "f7c2215094e894a8ee5ea3fb3a3b9af6c58e84df",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da9b358b_b8221fb8",
         "filename": "Tetris/src/Windows/AuthorizationWindow.java",
         "patchSetId": 1
