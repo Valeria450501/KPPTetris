@@ -12,32 +12,46 @@ import java.io.File;
 import java.io.IOException;
 
 public class PlayGameWindow extends JFrame{
+	/**Счёт игрока*/
 	private JLabel scoreLabel;
-	private JLabel nameLabel;
+	/**Кнопка остановки игры*/
 	private JButton pauseButton;
+	/**Кнопка выхода из игры*/
 	private JButton exitButton;
-	private JLabel bestScoreLabel;
-
+	/**Содержащий все элементы окна*/
 	private Box mainBox;
+	/**Объект классса с логикой игры, в которм содержатся методы, передвигающие фигуру
+	 * @see LogicGame */
 	private LogicGame tetris;
+	
+	/**Конструктор.
+	 * Создание и размещение всех элементов, находящихся в окне.
+	 * @param level выбранная сложность*/
 	public PlayGameWindow(Complexity level){
 		super("Тетрис");
 		tetris = new LogicGame(level,this);
+		tetris.playBot();
 		createMainBox();		
 		setContentPane(new BgPanel());
 		getContentPane().setLayout(new FlowLayout());
 		Dimension size = new Dimension(300,550); ;
 		tetris.getPainter().setPreferredSize(size);
 		getContentPane().add(tetris.getPainter(), BorderLayout.WEST);
+
 		getContentPane().add(mainBox, BorderLayout.EAST);
+		tetris.getDrawNextShape().setPreferredSize(new Dimension(40,60));
+				
 		tetris.start();
 		this.getContentPane().setBackground(Color.white);
-		setSize(400,600);
+		setSize(450,600);
 		setResizable(false);
 		this.setLocationRelativeTo(null);
 	}
+	
+	/**Создание Box, содержащего все элементы, размещающиеся в окне*/
 	public void createMainBox(){
 		scoreLabel = new JLabel("Счёт: "+tetris.getScore());
+		scoreLabel.setForeground(Color.white);
 		pauseButton = new JButton("Пауза ");
 		pauseButton.setPreferredSize(new Dimension(80,25));
 		exitButton = new JButton("Выход");
@@ -58,20 +72,35 @@ public class PlayGameWindow extends JFrame{
 			}
 		});
 		exitButton.setPreferredSize(new Dimension(80,25));
-		mainBox = Box.createVerticalBox();
-		mainBox.add(Box.createVerticalStrut(5));
-		mainBox.add(scoreLabel);
-		mainBox.add(Box.createVerticalStrut(400));
-		mainBox.add(pauseButton);
-		mainBox.add(Box.createVerticalStrut(25));
-		mainBox.add(exitButton);
-		mainBox.add(Box.createVerticalStrut(50));
+		Box oneBox = Box.createVerticalBox();
+		oneBox.add(Box.createVerticalStrut(5));
+
+		oneBox.add(Box.createVerticalStrut(5));
+		oneBox.add(scoreLabel);
+		oneBox.add(Box.createVerticalStrut(5));
+		oneBox.add(tetris.getDrawNextShape());
+		oneBox.add(Box.createVerticalStrut(300));
+		oneBox.add(pauseButton);
+		oneBox.add(Box.createVerticalStrut(25));
+		oneBox.add(exitButton);
+		oneBox.add(Box.createVerticalStrut(50));
+		
+		mainBox = Box.createHorizontalBox();
+		mainBox.add(Box.createHorizontalStrut(10));
+		mainBox.add(oneBox);
+		mainBox.add(Box.createHorizontalStrut(10));
 	}
 	
+	/**Изменение scoreLabel, который должен обнавляться при каждом изменении score
+	 * @param newScore новое значение, которое будет отображаться в scoreLabel*/
 	public void setScore(int newScore){
 		scoreLabel.setText("Счёт: "+newScore);
 	}
+	
+	/**<p>Класс, отображающий фон окна PlayGameWindow</p>*/
 	class BgPanel extends JPanel{
+		/**Отображение фона окна
+		 * @param The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
 	    public void paintComponent(Graphics g){
 	        Image im = null;
 	        try {

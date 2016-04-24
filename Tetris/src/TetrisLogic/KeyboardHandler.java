@@ -1,17 +1,23 @@
-package TetrisLogic; //(+)
+package TetrisLogic; 
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import TetrisLogic.Shape.Tetrominoes;
 
+/**<p>Класс, обрабатывающий нажатия кнопок клавиатуры</p> */
 class KeyboardHandler extends KeyAdapter{
+	/**Объект классса с логикой игры, в которм содержатся методы, передвигающие фигуру
+	 * @see LogicGame */
 	private LogicGame logic;
 	
+	/**Конструктор.
+	 * Вызывает метод по определению дальнейших действий над падающей фигурой
+	 * @param logic Объект класса, содержащего логику игры	 */
 	public KeyboardHandler(LogicGame logic){
 		this.logic = logic;
 	}
 	
+	/**Срабатывает при нажатии кнпок клавиатуры и выполняет действия, определяемые нажатой клавишей*/
 	public void keyPressed(KeyEvent e) {
 
          if (!logic.getStartStatus() || logic.getCurrentFallingShape().getShape() == Tetrominoes.NoShape) {  

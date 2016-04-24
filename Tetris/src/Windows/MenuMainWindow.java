@@ -14,17 +14,28 @@ import java.io.File;
 import java.io.IOException;
 
 public class MenuMainWindow extends JFrame {
-	
-	private JButton loginButton;
+	/**Кнопка иры бота*/
+	private JButton botButton;
+	/**Кнопка игры пользователя*/
 	private JButton gameButton;
+	/**Кнопка выхода из игры*/
 	private JButton exitButton;
+	/**Кнопка выбора лёгкого уровня*/
 	private JRadioButton easyLevelsButton;
-	private JRadioButton mediumLevelsButton; 
+	/**Кнопка выбора среднего уровня*/
+	private JRadioButton mediumLevelsButton;
+	/**Кнопка выбора сложного уровня*/
 	private JRadioButton hardLevelsButton;
+	/**Группа кнопок выбора уровня*/
 	private ButtonGroup chooseLevelsGroup;
+	/**Box всех элеметов окна*/
 	private Box mainBox;
+	/**Box элементов выбора уровня*/
 	private Box chosenComplexityBox;
 	
+	/**Конструктор.
+	 * Настройка окна.
+	 * Создание всех необходимых элеметов.*/
 	public MenuMainWindow(){
 		super("Меню");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -45,6 +56,7 @@ public class MenuMainWindow extends JFrame {
         this.setVisible( true );
 	}
 	
+	/**Создание группы кнопок выбора уровней сложности*/
 	private void createLevelButtonGroup(){
 		easyLevelsButton = new JRadioButton("Легко");
 		mediumLevelsButton = new JRadioButton("Нормально");
@@ -71,23 +83,27 @@ public class MenuMainWindow extends JFrame {
 		mediumLevelsButton.setSelected(true);
 		
 	}
+	
+	/**Создание кнопок*/
 	private void createButtons(){
-		loginButton = new JButton("Войти");
+		botButton = new JButton(" Бот ");
 		gameButton = new JButton("Играть");
 		exitButton = new JButton("Выход");
 		
-		loginButton.setFont(new Font(null, Font.BOLD,14));
+		botButton.setFont(new Font(null, Font.BOLD,14));
 		gameButton.setFont(new Font(null, Font.BOLD,14));
 		exitButton.setFont(new Font(null, Font.BOLD,14));
 		
-		loginButton.setBackground(Color.WHITE);
+		botButton.setBackground(Color.WHITE);
 		gameButton.setBackground(Color.WHITE);
 		exitButton.setBackground(Color.WHITE);		
 		
-		loginButton.addActionListener(new ActionListener(){
+		botButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-				AuthorizationWindow AuthorizWindow = new AuthorizationWindow(getThis());
-				AuthorizWindow.setVisible(true);
+				dispose();
+				PlayGameWindow game = new PlayGameWindow(new Complexity(chooseLevel()));
+				
+				game.setVisible(true);
 				}
 		});
 		
@@ -106,11 +122,12 @@ public class MenuMainWindow extends JFrame {
 				}
 		});
 		
-		loginButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		botButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		gameButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		exitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 	}
-		
+	
+	/**Создание Box группы кнопок выбора уровня сложности*/
 	private void createBoxCooseComplexity(){
 		Box chosenComplexity = Box.createVerticalBox();
 		chosenComplexityBox = Box.createHorizontalBox();
@@ -127,10 +144,12 @@ public class MenuMainWindow extends JFrame {
 		chosenComplexityBox.add(chosenComplexity);
 		chosenComplexityBox.add(Box.createHorizontalStrut(30));
 	}
+	
+	/**Создание Box всех элементов, размещаемых в окне*/
 	private void createMainBox(){
 		mainBox = Box.createVerticalBox();
 		mainBox.add(Box.createVerticalStrut(5));
-		mainBox.add(loginButton);
+		mainBox.add(botButton);
 		mainBox.add(Box.createVerticalStrut(20));
 		mainBox.add(chosenComplexityBox);
 		mainBox.add(Box.createVerticalStrut(20));
@@ -140,6 +159,8 @@ public class MenuMainWindow extends JFrame {
 		mainBox.add(Box.createVerticalStrut(5));	
 	}
 	
+	/**Получение выбранной сложности
+	 * @return выбранная сложность*/
 	public int chooseLevel(){
 		int chosenLevel = 0;
 		
@@ -152,10 +173,17 @@ public class MenuMainWindow extends JFrame {
 		
 		return chosenLevel;
 	}
+	
+	/**Получение объекта this
+	 * @return объект this*/
 	public MenuMainWindow getThis(){
 		return this;
 	}
+	
+	/**<p>Класс, отображающий фон окна MenuMainWindow</p>*/
 	class BgPanel extends JPanel{
+		/**Отображение фона окна
+		 * @param The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
 	    public void paintComponent(Graphics g){
 	        Image im = null;
 	        try {

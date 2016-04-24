@@ -3,15 +3,25 @@ package TetrisLogic;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-
 import javax.swing.JPanel;
-
 import TetrisLogic.Shape.Tetrominoes;
 
+/**
+ * <p>Класс отображает игровое поле на экране.</p>
+ */
 public class PaintNextShape extends JPanel{
+	/**Следующая падающая фигура
+	 * @see Shape*/
 	private Shape nextShape;
+	/**Объект классса с логикой игры
+	 * @see LogicGame */
 	private LogicGame tetris;
 	
+	/**Конструктор.
+	 * Производится настройка отображаемого поля.
+	 * @see KeyboardHandler
+	 * @param tetris объект классса с логикой игры
+	 */
 	public PaintNextShape(LogicGame tetris){
 		setFocusable(true);
 		this.nextShape = tetris.getNextShape();
@@ -19,15 +29,24 @@ public class PaintNextShape extends JPanel{
 		this.setBackground(Color.white);
 	}
 	
+	/**Опледеляется ширина сегемента фигуры
+	 * @return ширина сегемента фигуры*/
 	private int squareWidth() { 
 		return (int) getSize().getWidth() / (nextShape.getCountPartsShape()*2) + 1;
 	}
 	
+	/**Опледеляется высота сегемента фигуры
+	 * @return высота сегемента фигуры*/
 	int squareHeight() { 
     	return (int) getSize().getHeight() / (nextShape.getCountPartsShape()*2) + 1; 
     }
 	
-	private void drawSquare(Graphics g, int x, int y, Tetrominoes shape){ 
+	/**Отображение сегмента фигуры
+     * @param g The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images. 
+     * @param x координата X
+     * @param y координата Y
+     * @param shape тип рисуемой фигуры*/
+    private void drawSquare(Graphics g, int x, int y, Tetrominoes shape){ 
         Color colors[] = { 
         		new Color(0, 0, 0),
         		new Color(204, 102, 102), 
@@ -55,6 +74,9 @@ public class PaintNextShape extends JPanel{
         g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                          x + squareWidth() - 1, y + 1);
     }
+	
+	/**Отображение игрового поля
+     * @param g The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
 	public void paint(Graphics g) 
     { 
         super.paint(g);

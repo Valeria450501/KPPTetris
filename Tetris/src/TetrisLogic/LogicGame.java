@@ -1,53 +1,101 @@
-package TetrisLogic; //(+)
+package TetrisLogic; 
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.Timer;
+
+import Bot.RandomBot;
 import TetrisLogic.Shape.Tetrominoes;
 import Windows.MenuMainWindow;
 import Windows.PlayGameWindow;
 
 public class LogicGame implements ActionListener {
+	/**Выбранная сложность*/
 	private Complexity chosenComplexity;
+	/**Текущая падающая фигура*/
 	private Shape currentFallingShape;
+	/**Следующая падающая фигура*/
 	private Shape nextFallingShape;
-	private Painter paintBoard;
+	/**Объкт класса, отвечающего за отображение игрового поля
+	 * @see PainterBoardGame*/
+	private PainterBoardGame paintBoard;
+	/**Игровое поле*/
 	private Tetrominoes[] boardTetrominoes;
+	/**Поле с информацией о следующей падающей фигуре*/
 	private Tetrominoes[] boardNextShape;
+	/**Сигнализация статуса падения фигуры*/
 	private boolean isFallingFinished = false;
+	/**Сигнализация процесса игры. (Игра запущена)*/
 	private boolean isStarted = false;
+	/**Сигнализация процесса игры. (Игра остановлена)*/
 	private boolean isPaused = false;
+	/**Выбор игры с ботом*/
+	private boolean isBot = false;
+	/**Счёт игрока*/
 	private int score;
+	/**Текущая координата x*/
 	private int currentX = 0;
+	/**Текущая координата y*/
 	private int currentY = 0;
+	/**Таймер с периодом следующего хода*/
 	private Timer timer;
+	/**Объект окна, создающего этот объект
+	 * @see PlayGameWindow*/
 	private PlayGameWindow caused;
+	/**Класс, отображающий на экране следующую фигуру*/
+	private PaintNextShape drawNextShape;
 	
+	/**
+	 *Конструктор.
+	 *Определяет падающую фигуру, создаёт игровое поле, запускает таймер.
+	 *Вызывает перерисовывание полей(игрового и следйющей падающей фигуры)
+	 *@param complexity выбранная сложность
+	 *@param caused	объект окна, создающего этот объект  
+	 */
 	public LogicGame(Complexity complexity, PlayGameWindow caused) {
 		this.caused = caused;
 		chosenComplexity = complexity;
 		currentFallingShape = new Shape();
 		nextFallingShape = new Shape();
-		timer = new Timer(chosenComplexity.getTimeFalling(),this);
-		timer.start();
+		
 		boardTetrominoes = new Tetrominoes[chosenComplexity.getBoardWidth()*chosenComplexity.getBoardHeight()];
 		boardNextShape = new Tetrominoes[nextFallingShape.getCountPartsShape()*nextFallingShape.getCountPartsShape()];
-		paintBoard = new Painter(this,caused);
+		timer = new Timer(chosenComplexity.getTimeFalling(),this);
+		timer.start();
+		paintBoard = new PainterBoardGame(this,caused);
 		paintBoard.setVisible(true);;
+		drawNextShape = new PaintNextShape(this);
+		drawNextShape.setVisible(true);
 		clearBoardTetrominoes();
 		clearBoardNextShape();
 	}
 	
+	/**Выбор игры бота*/
+	public void playBot(){
+		isBot = true;
+	}
+	
+	/**Определение типа текущей падающей фигуры
+	 * @param x координата x текущей падающей фигуры
+	 * @param y координата y текущей падающей фигуры
+	 * @return тип текущей падающей фигуры
+	 * */
 	public Tetrominoes takeTypeCurrentFallingShape(int x, int y){
 		return boardTetrominoes[y*chosenComplexity.getBoardWidth()+x];
 	}
 	
+	/**Определение типа следующей падающей фигуры
+	 * @param x координата x следующей падающей фигуры
+	 * @param y координата y следйющей падающей фигуры
+	 * @return тип следующей падающей фигуры
+	 * */
 	public Tetrominoes takeTypeNextFallingShape(int x, int y){
 		return boardNextShape[y*nextFallingShape.getCountPartsShape()+x];
 	}
 	
+	/**Запуск игрового процесса*/
 	public void start() { 
         if (isPaused)
             return;
@@ -62,6 +110,7 @@ public class LogicGame implements ActionListener {
         timer.start();
     }
 
+	/**Остановка игрового процесса*/
 	public void pause(){ 
         if (!isStarted)
             return;
@@ -73,46 +122,49 @@ public class LogicGame implements ActionListener {
             timer.start();
         }
         paintBoard.repaint();
+        drawNextShape.repaint();
     }
-		
-	public void actionPerformed(ActionEvent e) {	//или передвинутся на строку вниз, или не падать и прекрипиться к тем, кто уже есть(новая фигура)
+
+	/**Метод либо передвигает падающую фигуру по игровому полю, либо создаёт новую падающую фигуру.
+	 * При игре с ботом вызывает действие, производимое над фигурой.
+	 * Вызывается при срабатывании таймера*/
+	public void actionPerformed(ActionEvent e) {	
         if (isFallingFinished) {
             isFallingFinished = false;
             newShape();
         } else {
+        	if(isBot == true){
+        		RandomBot bot = new RandomBot(this);
+        	}
             oneLineDown();
         }
     }
 	
+	/**Создание новой фигуры*/
 	private void newShape(){ 
-		if(currentFallingShape != nextFallingShape) {
-			nextFallingShape.setRandomShape();
-			currentFallingShape = nextFallingShape;
-		}
-		else{
-			currentFallingShape = nextFallingShape;
-			nextFallingShape.setRandomShape();
-		}
-		for (int i = 0; i < nextFallingShape.getCountPartsShape(); ++i) {
-            int x = nextFallingShape.getX(i);
-            int y = nextFallingShape.getY(i);
-        }
+		if(nextFallingShape.getShape() == Tetrominoes.NoShape)
+			nextFallingShape.setRandomShape(); 
+		currentFallingShape.setShape(nextFallingShape.getShape());
+		nextFallingShape.setRandomShape();
 		
 		currentX = chosenComplexity.getBoardWidth()/2;
 		currentY = chosenComplexity.getBoardHeight() - 1 + currentFallingShape.minY();
-		
+				
 		if (!tryMove(currentFallingShape, currentX, currentY)) {
             currentFallingShape.setShape(Tetrominoes.NoShape);
+            nextFallingShape.setShape(Tetrominoes.NoShape);
             timer.stop();
             isStarted = false;
         }
 	}
-	
+
+	/**Передвигаем фигуру на одну линию вниз*/
 	public void oneLineDown(){	
 		if(!tryMove(currentFallingShape, currentX, currentY - 1))
 			shapeLand();
 	}
-
+	
+	/**Передвигаем фигуру вниз на столько, на сколько это возможно*/
 	public void shapeFalling(){ 
 		int newY = currentY;
 		while (newY > 0) {
@@ -123,7 +175,13 @@ public class LogicGame implements ActionListener {
         shapeLand();
 	}
 	
-	public boolean tryMove(Shape fallingShape, int newX, int newY){ //(+)
+	/**Попытка передвинуть текущую падающую фигуру по заданным координатам
+	 * @param fallingShape фигура, которую передвигаем по заданным координатам
+	 * @param newX новая координата x
+	 * @param newY новая координата y
+	 * @return удалось ли переместить фигуру
+	 * */
+	public boolean tryMove(Shape fallingShape, int newX, int newY){ 
 		for (int i = 0; i < fallingShape.getCountPartsShape(); ++i) {
             int x = newX + fallingShape.getX(i);
             int y = newY - fallingShape.getY(i);
@@ -137,9 +195,12 @@ public class LogicGame implements ActionListener {
         currentX = newX;
         currentY = newY;
         paintBoard.repaint();
+        drawNextShape.repaint();
         return true;
 	}
 	
+	/**"Преземление" фигуры.
+	 * Вызывается, когда фигура больше не может двигаться вниз*/
 	private void shapeLand(){ 
 		for (int i = 0; i < currentFallingShape.getCountPartsShape(); ++i) {
             int x = currentX + currentFallingShape.getX(i);
@@ -153,6 +214,7 @@ public class LogicGame implements ActionListener {
             newShape();
 	}
 
+	/**Очистка заполненных линий*/
 	private void cleanFullLines(){ 
 		int numberFullLines = 0;
 		
@@ -180,52 +242,80 @@ public class LogicGame implements ActionListener {
             isFallingFinished = true;
             currentFallingShape.setShape(Tetrominoes.NoShape);
             paintBoard.repaint();
+            drawNextShape.repaint();
             caused.setScore(score);
         }
 	}
 	
+	/**Очистка игрового поля*/
 	private void clearBoardTetrominoes(){ 
 		for (int i = 0; i < chosenComplexity.getBoardHeight() * chosenComplexity.getBoardWidth(); ++i)
             boardTetrominoes[i] = Tetrominoes.NoShape;
 	}
 	
+	/**Очистка поля следующей падающей фигуры*/
 	private void clearBoardNextShape(){ 
 		for (int i = 0; i < nextFallingShape.getCountPartsShape() * nextFallingShape.getCountPartsShape(); ++i)
             boardNextShape[i] = Tetrominoes.NoShape;
 	}
-		
+	
+	/**Получить выбранную сложность
+	 * @return выбранная сложность*/
 	public Complexity getComplexity(){
 		return chosenComplexity;
 	}
 	
+	/**Получить падающую фигуру
+	 * @return падающая фигура*/
 	public Shape getCurrentFallingShape(){
 		return currentFallingShape;
 	}
 	
+	/**Получить статус запуска игры
+	 * @return статус запуска игры*/
 	public boolean getStartStatus(){
 		return isStarted;
 	}
 	
+	/**Получить статус остановки игры
+	 * @return статус остановки игры*/
 	public boolean getPauseStatus(){
 		return isPaused;
 	}
 	
+	/**Получить текущую X координату
+	 * @return текущая X координата*/
 	public int getCurrentX(){
 		return currentX;
 	}
 	
+	/**Получить текущую Y координату
+	 * @return текущая Y координата*/
 	public int getCurrentY(){
 		return currentY;
 	}
 	
-	public Painter getPainter(){
+	/**Получить объект, реализующий отображение поля игры
+	 * @return объект, реализующий отображение поля игры*/
+	public PainterBoardGame getPainter(){
 		return paintBoard;
 	}
 	
+	/**Получить счёт игрока
+	 * @return счёт игрока*/
 	public int getScore(){
 		return score;
 	}
+	
+	/**Получить следующую падающую фигуру
+	 * @return следующая падающая фигура*/
 	public Shape getNextShape(){
 		return nextFallingShape;
+	}
+	
+	/**Получить объект, реализующий отображение поля следующей падающей фигуры
+	 * @return объект, реализующий отображение поля следующей падающей фигуры*/
+	public PaintNextShape getDrawNextShape(){
+		return drawNextShape;
 	}
 }
