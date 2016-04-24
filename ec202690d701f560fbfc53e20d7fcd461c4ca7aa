@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_a74cf742",
+        "filename": "Tetris/src/Bot/RandomBot.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-04-24T15:50:36Z",
+      "side": 1,
+      "message": "шестой кейс не выполнится, здесь 7 надо",
+      "revId": "ec202690d701f560fbfc53e20d7fcd461c4ca7aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
