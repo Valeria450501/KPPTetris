@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
+
+import Rplay.ReplayLastGame;
 import TetrisLogic.Shape.Tetrominoes;
 
 /**
@@ -15,8 +17,10 @@ public class PaintNextShape extends JPanel{
 	private Shape nextShape;
 	/**Объект классса с логикой игры
 	 * @see LogicGame */
-	private LogicGame tetris;
-	
+	private LogicGame tetris = null;
+	/**Объект классса воспроизводящий последнюю игру
+	 * @see ReplayLastGame */
+	private ReplayLastGame lastGame = null;
 	/**Конструктор.
 	 * Производится настройка отображаемого поля.
 	 * @see KeyboardHandler
@@ -26,6 +30,16 @@ public class PaintNextShape extends JPanel{
 		setFocusable(true);
 		this.nextShape = tetris.getNextShape();
 		this.tetris = tetris;
+		this.setBackground(Color.white);
+	}
+	/**Конструктор.
+	 * Производится настройка отображаемого поля.
+	 * @param lastGame объект класса возобнавляющий последнюю игру
+	 */
+	public PaintNextShape(ReplayLastGame lastGame){
+		setFocusable(true);
+		this.nextShape = lastGame.getNextShape();
+		this.lastGame = lastGame;
 		this.setBackground(Color.white);
 	}
 	
@@ -79,29 +93,57 @@ public class PaintNextShape extends JPanel{
      * @param g The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
 	public void paint(Graphics g) 
     { 
-        super.paint(g);
-
-        Dimension size = getSize();
-        int boardTop = (int) size.getHeight() - nextShape.getCountPartsShape() * squareHeight();
-
-
-        for (int i = 0; i < nextShape.getCountPartsShape(); ++i) {
-            for (int j = 0; j < nextShape.getCountPartsShape(); ++j) {
-                Tetrominoes shape = tetris.takeTypeNextFallingShape(j, nextShape.getCountPartsShape() - i - 1);
-                if (shape != Tetrominoes.NoShape)
-                    drawSquare(g, 0 + j * squareWidth(),
-                               boardTop + i * squareHeight(), shape);
-            }
-        }
-        
-        if (tetris.getNextShape().getShape() != Tetrominoes.NoShape) {
-            for (int i = 0; i < tetris.getNextShape().getCountPartsShape(); ++i) {
-                int x = 3 + tetris.getNextShape().getX(i);
-                int y = 3 + tetris.getNextShape().getY(i);
-                drawSquare(g, 0 + x * squareWidth(),
-                           boardTop + (nextShape.getCountPartsShape() - y - 1) * squareHeight(),
-                           nextShape.getShape());
-            }
-        }
+		if(lastGame == null){
+	        super.paint(g);
+	
+	        Dimension size = getSize();
+	        int boardTop = (int) size.getHeight() - nextShape.getCountPartsShape() * squareHeight();
+	
+	
+	        for (int i = 0; i < nextShape.getCountPartsShape(); ++i) {
+	            for (int j = 0; j < nextShape.getCountPartsShape(); ++j) {
+	                Tetrominoes shape = tetris.takeTypeNextFallingShape(j, nextShape.getCountPartsShape() - i - 1);
+	                if (shape != Tetrominoes.NoShape)
+	                    drawSquare(g, 0 + j * squareWidth(),
+	                               boardTop + i * squareHeight(), shape);
+	            }
+	        }
+	        
+	        if (tetris.getNextShape().getShape() != Tetrominoes.NoShape) {
+	            for (int i = 0; i < tetris.getNextShape().getCountPartsShape(); ++i) {
+	                int x = 3 + tetris.getNextShape().getX(i);
+	                int y = 3 + tetris.getNextShape().getY(i);
+	                drawSquare(g, 0 + x * squareWidth(),
+	                           boardTop + (nextShape.getCountPartsShape() - y - 1) * squareHeight(),
+	                           nextShape.getShape());
+	            }
+	        }
+		}
+		else {
+			super.paint(g);
+			
+	        Dimension size = getSize();
+	        int boardTop = (int) size.getHeight() - nextShape.getCountPartsShape() * squareHeight();
+	
+	
+	        for (int i = 0; i < nextShape.getCountPartsShape(); ++i) {
+	            for (int j = 0; j < nextShape.getCountPartsShape(); ++j) {
+	                Tetrominoes shape = lastGame.takeTypeNextFallingShape(j, nextShape.getCountPartsShape() - i - 1);
+	                if (shape != Tetrominoes.NoShape)
+	                    drawSquare(g, 0 + j * squareWidth(),
+	                               boardTop + i * squareHeight(), shape);
+	            }
+	        }
+	        
+	        if (lastGame.getNextShape().getShape() != Tetrominoes.NoShape) {
+	            for (int i = 0; i < lastGame.getNextShape().getCountPartsShape(); ++i) {
+	                int x = 3 + lastGame.getNextShape().getX(i);
+	                int y = 3 + lastGame.getNextShape().getY(i);
+	                drawSquare(g, 0 + x * squareWidth(),
+	                           boardTop + (nextShape.getCountPartsShape() - y - 1) * squareHeight(),
+	                           lastGame.getNextShape().getShape());
+	            }
+	        }
+		}
     }
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class MenuMainWindow extends JFrame {
 	/**Кнопка иры бота*/
-	private JButton botButton;
+	private JButton extraButton;
 	/**Кнопка игры пользователя*/
 	private JButton gameButton;
 	/**Кнопка выхода из игры*/
@@ -86,23 +86,22 @@ public class MenuMainWindow extends JFrame {
 	
 	/**Создание кнопок*/
 	private void createButtons(){
-		botButton = new JButton(" Бот ");
+		extraButton = new JButton("Extra");
 		gameButton = new JButton("Играть");
 		exitButton = new JButton("Выход");
 		
-		botButton.setFont(new Font(null, Font.BOLD,14));
+		extraButton.setFont(new Font(null, Font.BOLD,14));
 		gameButton.setFont(new Font(null, Font.BOLD,14));
 		exitButton.setFont(new Font(null, Font.BOLD,14));
 		
-		botButton.setBackground(Color.WHITE);
+		extraButton.setBackground(Color.WHITE);
 		gameButton.setBackground(Color.WHITE);
 		exitButton.setBackground(Color.WHITE);		
 		
-		botButton.addActionListener(new ActionListener(){
+		extraButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				dispose();
-				PlayGameWindow game = new PlayGameWindow(new Complexity(chooseLevel()));
-				
+				ExtraMenuWindow game = new ExtraMenuWindow();
 				game.setVisible(true);
 				}
 		});
@@ -122,7 +121,7 @@ public class MenuMainWindow extends JFrame {
 				}
 		});
 		
-		botButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		extraButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		gameButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		exitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 	}
@@ -149,7 +148,7 @@ public class MenuMainWindow extends JFrame {
 	private void createMainBox(){
 		mainBox = Box.createVerticalBox();
 		mainBox.add(Box.createVerticalStrut(5));
-		mainBox.add(botButton);
+		mainBox.add(extraButton);
 		mainBox.add(Box.createVerticalStrut(20));
 		mainBox.add(chosenComplexityBox);
 		mainBox.add(Box.createVerticalStrut(20));

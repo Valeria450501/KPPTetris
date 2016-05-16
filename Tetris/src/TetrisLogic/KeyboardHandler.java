@@ -55,9 +55,8 @@ class KeyboardHandler extends KeyAdapter{
              break;
          case 'D':
              logic.oneLineDown();
-             break;
+             break; 
          }
-
     }
  
 }

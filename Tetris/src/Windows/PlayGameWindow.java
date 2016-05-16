@@ -14,8 +14,6 @@ import java.io.IOException;
 public class PlayGameWindow extends JFrame{
 	/**Счёт игрока*/
 	private JLabel scoreLabel;
-	/**Кнопка остановки игры*/
-	private JButton pauseButton;
 	/**Кнопка выхода из игры*/
 	private JButton exitButton;
 	/**Содержащий все элементы окна*/
@@ -29,8 +27,7 @@ public class PlayGameWindow extends JFrame{
 	 * @param level выбранная сложность*/
 	public PlayGameWindow(Complexity level){
 		super("Тетрис");
-		tetris = new LogicGame(level,this);
-		tetris.playBot();
+		tetris = new LogicGame(level,this);;
 		createMainBox();		
 		setContentPane(new BgPanel());
 		getContentPane().setLayout(new FlowLayout());
@@ -39,34 +36,28 @@ public class PlayGameWindow extends JFrame{
 		getContentPane().add(tetris.getPainter(), BorderLayout.WEST);
 
 		getContentPane().add(mainBox, BorderLayout.EAST);
-		tetris.getDrawNextShape().setPreferredSize(new Dimension(40,60));
-				
+		tetris.getDrawNextShape().setPreferredSize(new Dimension(40,60));		
 		tetris.start();
 		this.getContentPane().setBackground(Color.white);
 		setSize(450,600);
 		setResizable(false);
 		this.setLocationRelativeTo(null);
 	}
+	/**Игрет бот*/
+	public void playBot(){
+		tetris.playBot();
+	}
 	
 	/**Создание Box, содержащего все элементы, размещающиеся в окне*/
 	public void createMainBox(){
 		scoreLabel = new JLabel("Счёт: "+tetris.getScore());
 		scoreLabel.setForeground(Color.white);
-		pauseButton = new JButton("Пауза ");
-		pauseButton.setPreferredSize(new Dimension(80,25));
-		exitButton = new JButton("Выход");
+		exitButton = new JButton("Меню ");
 		
-		pauseButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent event){
-				if(tetris.getStartStatus())
-					tetris.pause();
-				else 
-					tetris.start();
-			}
-		});
 		exitButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				dispose();
+				tetris.pause();
 				MenuMainWindow newMain = new MenuMainWindow();
 				newMain.setVisible(true);
 			}
@@ -80,7 +71,6 @@ public class PlayGameWindow extends JFrame{
 		oneBox.add(Box.createVerticalStrut(5));
 		oneBox.add(tetris.getDrawNextShape());
 		oneBox.add(Box.createVerticalStrut(300));
-		oneBox.add(pauseButton);
 		oneBox.add(Box.createVerticalStrut(25));
 		oneBox.add(exitButton);
 		oneBox.add(Box.createVerticalStrut(50));

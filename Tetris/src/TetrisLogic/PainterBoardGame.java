@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
+
+import Rplay.ReplayLastGame;
 import TetrisLogic.Shape.Tetrominoes;
 import Windows.PlayGameWindow;
 /**
@@ -15,7 +17,12 @@ public class PainterBoardGame extends JPanel{
 	/**Объект классса с логикой игры
 	 * @see LogicGame */
 	private LogicGame logic;
-	
+	/**Объект класса ReplaceLastGame воспроизводящий последнюю игру*/
+	private ReplayLastGame lastGame = null;
+	/**Координата X для отображения текущей падающей фигуры*/
+	int currentX;
+	/**Координата Y для отображения текущей падающей фигуры*/
+	int currentY;
 	/**Конструктор.
 	 * Производится настройка отображаемого поля.
 	 * Добавляется обработчик нажатых клавишь.
@@ -31,17 +38,36 @@ public class PainterBoardGame extends JPanel{
 		this.setMinimumSize(size);
 		this.setBackground(Color.white);
 	}
+	/**Конструктор.
+	 * Производится настройка отображаемого поля.
+	 * @param lastGame объект классса воспроизводящий последнюю игру
+	 */
+	public PainterBoardGame(ReplayLastGame lastGame){
+		currentX = lastGame.getComplexity().getBoardWidth()/2;
+		currentY = lastGame.getComplexity().getBoardHeight() - 1 + lastGame.getCurrentFallingShape().minY();
+		setFocusable(true);
+		this.lastGame = lastGame;
+		Dimension size = new Dimension(100,200); 
+		this.setMinimumSize(size);
+		this.setBackground(Color.white);
+	}
 	
 	/**Опледеляется ширина сегемента фигуры
 	 * @return ширина сегемента фигуры*/
 	private int squareWidth() { 
-		return (int) getSize().getWidth() / logic.getComplexity().getBoardWidth();
+		if(lastGame == null)
+			return (int) getSize().getWidth() / logic.getComplexity().getBoardWidth();
+		else 
+			return (int) getSize().getWidth() / lastGame.getComplexity().getBoardWidth();
 	}
 	
 	/**Опледеляется высота сегемента фигуры
 	 * @return высота сегемента фигуры*/
     int squareHeight() { 
-    	return (int) getSize().getHeight() / logic.getComplexity().getBoardHeight(); 
+    	if(lastGame == null)
+    		return (int) getSize().getHeight() / logic.getComplexity().getBoardHeight();
+    	else 
+    		return (int) getSize().getHeight() / lastGame.getComplexity().getBoardHeight();
     }
 	
     /**Отображение сегмента фигуры
@@ -83,28 +109,56 @@ public class PainterBoardGame extends JPanel{
     public void paint(Graphics g) 
     { 
         super.paint(g);
-
-        Dimension size = getSize();
-        int boardTop = (int) size.getHeight() - logic.getComplexity().getBoardHeight() * squareHeight();
-
-
-        for (int i = 0; i < logic.getComplexity().getBoardHeight(); ++i) {
-            for (int j = 0; j < logic.getComplexity().getBoardWidth(); ++j) {
-                Tetrominoes shape = logic.takeTypeCurrentFallingShape(j, logic.getComplexity().getBoardHeight() - i - 1);
-                if (shape != Tetrominoes.NoShape)
-                    drawSquare(g, 0 + j * squareWidth(),
-                               boardTop + i * squareHeight(), shape);
-            }
-        }
         
-        if (logic.getCurrentFallingShape().getShape() != Tetrominoes.NoShape) {
-            for (int i = 0; i < logic.getCurrentFallingShape().getCountPartsShape(); ++i) {
-                int x = logic.getCurrentX() + logic.getCurrentFallingShape().getX(i);
-                int y = logic.getCurrentY() - logic.getCurrentFallingShape().getY(i);
-                drawSquare(g, 0 + x * squareWidth(),
-                           boardTop + (logic.getComplexity().getBoardHeight() - y - 1) * squareHeight(),
-                           logic.getCurrentFallingShape().getShape());
-            }
+        if(lastGame == null){
+	        Dimension size = getSize();
+	        int boardTop = (int) size.getHeight() - logic.getComplexity().getBoardHeight() * squareHeight();
+	
+	
+	        for (int i = 0; i < logic.getComplexity().getBoardHeight(); ++i) {
+	            for (int j = 0; j < logic.getComplexity().getBoardWidth(); ++j) {
+	                Tetrominoes shape = logic.takeTypeCurrentFallingShape(j, logic.getComplexity().getBoardHeight() - i - 1);
+	                if (shape != Tetrominoes.NoShape)
+	                    drawSquare(g, 0 + j * squareWidth(),
+	                               boardTop + i * squareHeight(), shape);
+	            }
+	        }
+	        
+	        if (logic.getCurrentFallingShape().getShape() != Tetrominoes.NoShape) {
+	            for (int i = 0; i < logic.getCurrentFallingShape().getCountPartsShape(); ++i) {
+	                int x = logic.getCurrentX() + logic.getCurrentFallingShape().getX(i);
+	                int y = logic.getCurrentY() - logic.getCurrentFallingShape().getY(i);
+	                drawSquare(g, 0 + x * squareWidth(),
+	                           boardTop + (logic.getComplexity().getBoardHeight() - y - 1) * squareHeight(),
+	                           logic.getCurrentFallingShape().getShape());
+	            }
+	        }
+        }
+        else {
+        	Dimension size = getSize();
+	        int boardTop = (int) size.getHeight() - lastGame.getComplexity().getBoardHeight() * squareHeight();
+	
+	
+	        for (int i = 0; i < lastGame.getComplexity().getBoardHeight(); ++i) {
+	            for (int j = 0; j < lastGame.getComplexity().getBoardWidth(); ++j) {
+	                Tetrominoes shape = lastGame.takeTypeCurrentFallingShape(j, lastGame.getComplexity().getBoardHeight() - i - 1);
+	                if (shape != Tetrominoes.NoShape)
+	                    drawSquare(g, 0 + j * squareWidth(),
+	                               boardTop + i * squareHeight(), shape);
+	            }
+	        }
+	        
+	       
+	        if (lastGame.getCurrentFallingShape().getShape() != Tetrominoes.NoShape) {
+	            for (int i = 0; i < lastGame.getCurrentFallingShape().getCountPartsShape(); ++i) {
+	                int x = currentX + lastGame.getCurrentFallingShape().getX(i);
+	                int y = currentY - lastGame.getCurrentFallingShape().getY(i);
+	                drawSquare(g, 0 + x * squareWidth(),
+	                           boardTop + (lastGame.getComplexity().getBoardHeight() - y - 1) * squareHeight(),
+	                           lastGame.getCurrentFallingShape().getShape());
+	            }
+	        }
+	        
         }
     }
     

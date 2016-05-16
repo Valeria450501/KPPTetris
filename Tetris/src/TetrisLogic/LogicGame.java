@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.Timer;
 
 import Bot.RandomBot;
+import FileWorking.FileLogicReplace;
+import FileWorking.TextFile;
 import TetrisLogic.Shape.Tetrominoes;
 import Windows.MenuMainWindow;
 import Windows.PlayGameWindow;
@@ -46,6 +48,9 @@ public class LogicGame implements ActionListener {
 	private PlayGameWindow caused;
 	/**Класс, отображающий на экране следующую фигуру*/
 	private PaintNextShape drawNextShape;
+	/**Класс, отвечающий за запись поей для последующего воспроизведения последней игры
+	 * @see PaintNextShape*/
+	private FileLogicReplace fileToWrite;
 	
 	/**
 	 *Конструктор.
@@ -140,12 +145,31 @@ public class LogicGame implements ActionListener {
         }
     }
 	
-	/**Создание новой фигуры*/
-	private void newShape(){ 
-		if(nextFallingShape.getShape() == Tetrominoes.NoShape)
-			nextFallingShape.setRandomShape(); 
-		currentFallingShape.setShape(nextFallingShape.getShape());
-		nextFallingShape.setRandomShape();
+	/**Создание новой фигуры и запись в файл поля игры, следующей и текущей фигур*/
+	private void newShape(){
+		fileToWrite = new FileLogicReplace(boardTetrominoes, getComplexity(), score);
+		
+		if(nextFallingShape.getShape() == Tetrominoes.NoShape){
+			fileToWrite.createFile();
+			fileToWrite.addTofile("NewGame");
+			fileToWrite.writeComplexity(chosenComplexity);
+			nextFallingShape.setRandomShape();
+			fileToWrite.setNextShape(nextFallingShape);
+			fileToWrite.setCurrentShape(currentFallingShape);
+			fileToWrite.addToFile();
+			currentFallingShape.setShape(nextFallingShape.getShape());
+			nextFallingShape.setRandomShape();
+			fileToWrite.setCurrentShape(currentFallingShape);
+			fileToWrite.setNextShape(nextFallingShape);
+			fileToWrite.addToFile();
+		}
+		else {
+			currentFallingShape.setShape(nextFallingShape.getShape());
+			fileToWrite.setCurrentShape(currentFallingShape);
+			nextFallingShape.setRandomShape();
+			fileToWrite.setNextShape(nextFallingShape);
+			fileToWrite.addToFile();
+		}		
 		
 		currentX = chosenComplexity.getBoardWidth()/2;
 		currentY = chosenComplexity.getBoardHeight() - 1 + currentFallingShape.minY();
@@ -317,5 +341,5 @@ public class LogicGame implements ActionListener {
 	 * @return объект, реализующий отображение поля следующей падающей фигуры*/
 	public PaintNextShape getDrawNextShape(){
 		return drawNextShape;
-	}
+	}	
 }

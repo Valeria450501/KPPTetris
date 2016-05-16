@@ -38,24 +38,24 @@ public class RandomBot {
 		emptyHandler = new Handler(logic);
 		
 		switch(position){
-		case 0:
-			break;
 		case 1:
-			emptyHandler.moveDown();
 			break;
 		case 2:
-			emptyHandler.moveLeft();
+			emptyHandler.moveDown();
 			break;
 		case 3:
-			emptyHandler.moveOneLineDown();
+			emptyHandler.moveLeft();
 			break;
 		case 4:
-			emptyHandler.moveRight();
+			emptyHandler.moveOneLineDown();
 			break;
 		case 5:
-			emptyHandler.moveSpace();
+			emptyHandler.moveRight();
 			break;
 		case 6:
+			emptyHandler.moveSpace();
+			break;
+		case 7:
 			emptyHandler.moveUp();
 			break;
 		}	
