@@ -1,0 +1,245 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_a2b253e3",
+        "filename": "Tetris/src/Bot/RandomBot.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "шта? nextInt(n) выдает значения от 0 включительно до n (не включая n). И пустой кейс. Насколько понимаю твою задумку, ставь nextInt(7), начинай кейсы с мувами с нуля и в конце\ncase 6:\ndefault:\n    break;\nможно и без case 6, но это повышает наглядность, просто рекомендация",
+      "range": {
+        "startLine": 37,
+        "startChar": 24,
+        "endLine": 60,
+        "endChar": 9
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_22bf63ab",
+        "filename": "Tetris/src/FileWorking/FileLogicReplace.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "данильчик скажет тебе здесь поставить скобки вокруг инструкции",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 25
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_02dfbf0d",
+        "filename": "Tetris/src/FileWorking/FileLogicReplace.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "ну, вообще рекомендуется default писать, даже когда он пустой",
+      "range": {
+        "startLine": 73,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 2
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_e2e3bbd7",
+        "filename": "Tetris/src/FileWorking/FileLogicReplace.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "опять же, скобки уже говорил",
+      "range": {
+        "startLine": 190,
+        "startChar": 3,
+        "endLine": 192,
+        "endChar": 2
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_c2e437e1",
+        "filename": "Tetris/src/FileWorking/FileLogicReplace.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "\u003cDEL\u003e\nэто так, просто следи за ними",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 1
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_e20a9b89",
+        "filename": "Tetris/src/FileWorking/TextFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "не нужно, и без этого очищается",
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_623e8b29",
+        "filename": "Tetris/src/Rplay/ReplayLastGame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "некрасиво все в одну строку без пробелов\nлучше или раньше посчитать, или разбить эти скобки на более-мене красивые строки",
+      "range": {
+        "startLine": 56,
+        "startChar": 25,
+        "endLine": 56,
+        "endChar": 105
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_e2185bd5",
+        "filename": "Tetris/src/TetrisLogic/Complexity.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "название с БольшойБуквыКакКласс, члены КРИЧАЩИМ КАПСОМ",
+      "range": {
+        "startLine": 14,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 2
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_22e08395",
+        "filename": "Tetris/src/TetrisLogic/PaintNextShape.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "Луцик любил так переменные называть)))\nхотя этот метод не очень нагружен логикой, смысл того, что такое g вроде сложно потерять, пока читаешь",
+      "range": {
+        "startLine": 63,
+        "startChar": 37,
+        "endLine": 63,
+        "endChar": 38
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_02f0df65",
+        "filename": "Tetris/src/TetrisLogic/PainterBoardGame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "{}{}",
+      "range": {
+        "startLine": 58,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 19
+      },
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_8204ef49",
+        "filename": "Tetris/src/Windows/ExtraMenuWindow.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-17T20:38:39Z",
+      "side": 1,
+      "message": "вообще для приличия можно было бы вывести сообщениe, но это так",
+      "revId": "fbcf5511fcf076a27e6958676f7fb98962eea409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
