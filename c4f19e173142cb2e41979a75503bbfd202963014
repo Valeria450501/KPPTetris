@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_8bf4f95a",
+        "filename": "Tetris/src/FileWorking/FileLogicReplace.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-23T11:40:13Z",
+      "side": 1,
+      "message": "почему бы не использовать один try catch? если в первом что-то не заладится, то и во втором там будет нечего делать\nну и дефолт на всякий случай хорошо было бы",
+      "range": {
+        "startLine": 281,
+        "startChar": 3,
+        "endLine": 306,
+        "endChar": 3
+      },
+      "revId": "c4f19e173142cb2e41979a75503bbfd202963014",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_4b6f11fc",
+        "filename": "Tetris/src/FileWorking/TextFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-23T11:40:13Z",
+      "side": 1,
+      "message": "как обычно",
+      "range": {
+        "startLine": 67,
+        "startChar": 35,
+        "endLine": 68,
+        "endChar": 33
+      },
+      "revId": "c4f19e173142cb2e41979a75503bbfd202963014",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_eb80258d",
+        "filename": "Tetris/src/FileWorking/TextFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-23T11:40:13Z",
+      "side": 1,
+      "message": "это ж можно на for заменить",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 3
+      },
+      "revId": "c4f19e173142cb2e41979a75503bbfd202963014",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_6b43f56c",
+        "filename": "Tetris/src/TetrisLogic/LogicGame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-23T11:40:13Z",
+      "side": 1,
+      "message": "если Луцик так называл переменные, то это не значит, что так должны делать и мы",
+      "range": {
+        "startLine": 60,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "c4f19e173142cb2e41979a75503bbfd202963014",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_ab4d7d9b",
+        "filename": "Tetris/src/TetrisLogic/LogicGame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1007580
+      },
+      "writtenOn": "2016-05-23T11:40:13Z",
+      "side": 1,
+      "message": "если что, я уже говорил об этом",
+      "range": {
+        "startLine": 129,
+        "startChar": 8,
+        "endLine": 130,
+        "endChar": 19
+      },
+      "revId": "c4f19e173142cb2e41979a75503bbfd202963014",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
