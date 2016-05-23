@@ -2,18 +2,21 @@ package TetrisLogic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import javax.swing.Timer;
 
 import Bot.RandomBot;
 import FileWorking.FileLogicReplace;
-import FileWorking.TextFile;
 import TetrisLogic.Shape.Tetrominoes;
-import Windows.MenuMainWindow;
 import Windows.PlayGameWindow;
 
-public class LogicGame implements ActionListener {
+public class LogicGame implements ActionListener{
 	/**Выбранная сложность*/
 	private Complexity chosenComplexity;
 	/**Текущая падающая фигура*/
@@ -51,6 +54,12 @@ public class LogicGame implements ActionListener {
 	/**Класс, отвечающий за запись поей для последующего воспроизведения последней игры
 	 * @see PaintNextShape*/
 	private FileLogicReplace fileToWrite;
+
+	static ServerSocket server;
+	private Thread clientThread;
+	private BufferedReader br;
+	private PrintStream ps;
+	private Socket s;
 	
 	/**
 	 *Конструктор.
@@ -126,8 +135,6 @@ public class LogicGame implements ActionListener {
         } else {
             timer.start();
         }
-        paintBoard.repaint();
-        drawNextShape.repaint();
     }
 
 	/**Метод либо передвигает падающую фигуру по игровому полю, либо создаёт новую падающую фигуру.
@@ -145,32 +152,80 @@ public class LogicGame implements ActionListener {
         }
     }
 	
+	private void firsTime(){
+		fileToWrite = new FileLogicReplace(boardTetrominoes, getComplexity(), score);
+		clientThread = new Thread(fileToWrite);
+		clientThread.start();
+		try	{
+			server = new ServerSocket(25256); // Номер сокета 2525
+		} catch(Exception e) {
+			System.out.println("ERRSOCK+"+e); 
+		}
+			s = null;
+			try {
+				s = server.accept(); // Ожидание соединения с клиентом
+			} catch(Exception e) {
+				System.out.println("ACCEPTER"+e);
+			}
+			
+			try	{
+				br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				ps = new PrintStream(s.getOutputStream());
+				ps.println("CREATE_FILE"); 
+				ps.flush();
+				while(!br.readLine().equals("make"));
+			} catch(Exception e) {
+				System.out.println("PSERROR"+e);
+			}
+	}
+	
 	/**Создание новой фигуры и запись в файл поля игры, следующей и текущей фигур*/
 	private void newShape(){
-		fileToWrite = new FileLogicReplace(boardTetrominoes, getComplexity(), score);
 		
 		if(nextFallingShape.getShape() == Tetrominoes.NoShape){
-			fileToWrite.createFile();
-			fileToWrite.addTofile("NewGame");
+			firsTime();
 			fileToWrite.writeComplexity(chosenComplexity);
 			nextFallingShape.setRandomShape();
 			fileToWrite.setNextShape(nextFallingShape);
 			fileToWrite.setCurrentShape(currentFallingShape);
-			fileToWrite.addToFile();
+			ps.println("ADD_TO_FILE"); 
+			ps.flush();
+			try {
+				while(!br.readLine().equals("make"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			currentFallingShape.setShape(nextFallingShape.getShape());
 			nextFallingShape.setRandomShape();
 			fileToWrite.setCurrentShape(currentFallingShape);
 			fileToWrite.setNextShape(nextFallingShape);
-			fileToWrite.addToFile();
+			ps.println("ADD_TO_FILE"); 
+			ps.flush();		
+			try {
+				while(!br.readLine().equals("make"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
+			fileToWrite.setBoard(boardTetrominoes);
+			fileToWrite.setNewScore(score);
 			currentFallingShape.setShape(nextFallingShape.getShape());
 			fileToWrite.setCurrentShape(currentFallingShape);
 			nextFallingShape.setRandomShape();
 			fileToWrite.setNextShape(nextFallingShape);
-			fileToWrite.addToFile();
-		}		
-		
+			try{
+				ps.println("ADD_TO_FILE"); 
+				ps.flush();
+			} catch(Exception e) {
+				System.out.println("PSERROR"+e);
+			}		
+			try {
+				while(!br.readLine().equals("make"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		currentX = chosenComplexity.getBoardWidth()/2;
 		currentY = chosenComplexity.getBoardHeight() - 1 + currentFallingShape.minY();
 				
@@ -179,7 +234,8 @@ public class LogicGame implements ActionListener {
             nextFallingShape.setShape(Tetrominoes.NoShape);
             timer.stop();
             isStarted = false;
-        }
+		}
+        
 	}
 
 	/**Передвигаем фигуру на одну линию вниз*/
@@ -218,8 +274,6 @@ public class LogicGame implements ActionListener {
         currentFallingShape = fallingShape;
         currentX = newX;
         currentY = newY;
-        paintBoard.repaint();
-        drawNextShape.repaint();
         return true;
 	}
 	
@@ -237,6 +291,7 @@ public class LogicGame implements ActionListener {
         if (!isFallingFinished)
             newShape();
 	}
+	
 
 	/**Очистка заполненных линий*/
 	private void cleanFullLines(){ 
@@ -265,8 +320,6 @@ public class LogicGame implements ActionListener {
             score += numberFullLines;
             isFallingFinished = true;
             currentFallingShape.setShape(Tetrominoes.NoShape);
-            paintBoard.repaint();
-            drawNextShape.repaint();
             caused.setScore(score);
         }
 	}
@@ -299,6 +352,11 @@ public class LogicGame implements ActionListener {
 	 * @return статус запуска игры*/
 	public boolean getStartStatus(){
 		return isStarted;
+	}
+	
+	public void exitFromGame(){
+		paintBoard.stopGame();
+		drawNextShape.stopGame();
 	}
 	
 	/**Получить статус остановки игры
@@ -341,5 +399,7 @@ public class LogicGame implements ActionListener {
 	 * @return объект, реализующий отображение поля следующей падающей фигуры*/
 	public PaintNextShape getDrawNextShape(){
 		return drawNextShape;
-	}	
+	}
+
+
 }

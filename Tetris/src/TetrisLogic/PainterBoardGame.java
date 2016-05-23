@@ -13,7 +13,7 @@ import Windows.PlayGameWindow;
  * И создаёт обработчик нажатия на клавиши.</p>
  * @see KeyboardHandler
  */
-public class PainterBoardGame extends JPanel{
+public class PainterBoardGame extends JPanel implements Runnable{
 	/**Объект классса с логикой игры
 	 * @see LogicGame */
 	private LogicGame logic;
@@ -23,6 +23,10 @@ public class PainterBoardGame extends JPanel{
 	int currentX;
 	/**Координата Y для отображения текущей падающей фигуры*/
 	int currentY;
+	/**Статус обнавления содержимого экрана*/
+	private boolean isStarted = true;
+	/**Поток, в котором происходит обнавление интерфейса игрового поля*/
+	private Thread painterThread;
 	/**Конструктор.
 	 * Производится настройка отображаемого поля.
 	 * Добавляется обработчик нажатых клавишь.
@@ -31,18 +35,21 @@ public class PainterBoardGame extends JPanel{
 	 * @param caused окно, в ктором отображается игра
 	 */
 	public PainterBoardGame(LogicGame logic, PlayGameWindow caused){
+		painterThread  = new Thread(this);
 		setFocusable(true);
 		this.logic = logic;
 		Dimension size = new Dimension(100,200); 
 		this.addKeyListener(new KeyboardHandler(logic));
 		this.setMinimumSize(size);
 		this.setBackground(Color.white);
+		this.painterThread.start();
 	}
 	/**Конструктор.
 	 * Производится настройка отображаемого поля.
 	 * @param lastGame объект классса воспроизводящий последнюю игру
 	 */
 	public PainterBoardGame(ReplayLastGame lastGame){
+		painterThread  = new Thread(this);
 		currentX = lastGame.getComplexity().getBoardWidth()/2;
 		currentY = lastGame.getComplexity().getBoardHeight() - 1 + lastGame.getCurrentFallingShape().minY();
 		setFocusable(true);
@@ -50,6 +57,7 @@ public class PainterBoardGame extends JPanel{
 		Dimension size = new Dimension(100,200); 
 		this.setMinimumSize(size);
 		this.setBackground(Color.white);
+		this.painterThread.start();
 	}
 	
 	/**Опледеляется ширина сегемента фигуры
@@ -162,4 +170,21 @@ public class PainterBoardGame extends JPanel{
         }
     }
     
+    /**Метод, который вызывает перерисовку игрового поля через заданный промежуток времени*/
+	@Override
+	public void run() {
+		while(isStarted){
+			this.repaint();
+			try {
+				painterThread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**Метод останавливает обнавления игрового поля*/
+	public void stopGame(){
+		isStarted = false;
+	}
  }

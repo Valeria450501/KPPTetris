@@ -65,6 +65,7 @@ public class ReplayGameWindow extends JFrame{
 				dispose();
 				MenuMainWindow newMain = new MenuMainWindow();
 				newMain.setVisible(true);
+				tetris.close();
 			}
 		});
 		exitButton.setPreferredSize(new Dimension(80,25));

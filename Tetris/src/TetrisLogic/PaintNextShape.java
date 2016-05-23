@@ -11,7 +11,11 @@ import TetrisLogic.Shape.Tetrominoes;
 /**
  * <p>Класс отображает игровое поле на экране.</p>
  */
-public class PaintNextShape extends JPanel{
+public class PaintNextShape extends JPanel implements Runnable{
+	/**Статус обнавления содержимого экрана*/
+	private boolean isStarted = true;
+	/**Поток, в котором происходит обнавление интерфейса игрового поля*/
+	Thread painterThread = new Thread(this);
 	/**Следующая падающая фигура
 	 * @see Shape*/
 	private Shape nextShape;
@@ -31,6 +35,7 @@ public class PaintNextShape extends JPanel{
 		this.nextShape = tetris.getNextShape();
 		this.tetris = tetris;
 		this.setBackground(Color.white);
+		this.painterThread.start();
 	}
 	/**Конструктор.
 	 * Производится настройка отображаемого поля.
@@ -41,6 +46,7 @@ public class PaintNextShape extends JPanel{
 		this.nextShape = lastGame.getNextShape();
 		this.lastGame = lastGame;
 		this.setBackground(Color.white);
+		this.painterThread.start();
 	}
 	
 	/**Опледеляется ширина сегемента фигуры
@@ -146,4 +152,28 @@ public class PaintNextShape extends JPanel{
 	        }
 		}
     }
+	
+	 /**Метод, который вызывает перерисовку игрового поля через заданный промежуток времени*/
+	@Override
+	public void run() {
+		while(isStarted){
+			this.repaint();
+			try {
+				painterThread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		try {
+			painterThread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**Метод останавливает обнавления игрового поля*/
+	public void stopGame(){
+		isStarted = false;
+	}
 }

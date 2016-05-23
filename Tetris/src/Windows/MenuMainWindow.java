@@ -97,6 +97,10 @@ public class MenuMainWindow extends JFrame {
 		extraButton.setBackground(Color.WHITE);
 		gameButton.setBackground(Color.WHITE);
 		exitButton.setBackground(Color.WHITE);		
+				
+		extraButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		gameButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+		exitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		
 		extraButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
@@ -120,10 +124,6 @@ public class MenuMainWindow extends JFrame {
 				game.setVisible(true);
 				}
 		});
-		
-		extraButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		gameButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
-		exitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 	}
 	
 	/**Создание Box группы кнопок выбора уровня сложности*/
@@ -191,5 +191,7 @@ public class MenuMainWindow extends JFrame {
 	        g.drawImage(im, 0, 0, null); 
 	    }
 	}
+
+	
 	
 }

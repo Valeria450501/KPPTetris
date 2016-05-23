@@ -171,4 +171,8 @@ public class ReplayLastGame implements ActionListener {
 	public void setScore(int newScore){
 		score = newScore;
 	}
+	
+	public void close(){
+		some.close();
+	}
 }

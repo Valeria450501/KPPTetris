@@ -1,12 +1,19 @@
 package FileWorking;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import TetrisLogic.Complexity;
-import TetrisLogic.Complexity.typeComplexity;
 import TetrisLogic.Shape;
 import TetrisLogic.Shape.Tetrominoes;
 
-public class FileLogicReplace {
-	/**Игровое поле, которое записывают в файл, лиюо из него считывают*/
+public class FileLogicReplace implements Runnable {
+	/**Игровое поле, которое записывают в файл, либо из него считывают*/
 	private Tetrominoes[] boardTetrominoes;
 	/**счёт игрока*/
 	private int score;
@@ -20,7 +27,6 @@ public class FileLogicReplace {
 	private TextFile file;
 	/**Статус остановки игры*/
 	private boolean isStoped = false;
-	
 	/**Конструктор класса для записи игры
 	 * @param boardTetrominoes игровое поле
 	 * @param compexity сложность
@@ -165,9 +171,11 @@ public class FileLogicReplace {
 	
 	/**Добавиьт игровое действие в файл*/
 	public void addToFile(){
+		
 		for(int j=0; j < complexity.getBoardHeight(); j++)
-			for(int i=0; i < complexity.getBoardWidth(); i++)
+			for(int i=0; i < complexity.getBoardWidth(); i++){
 				file.addToFile(this.getTypeShapeChar(this.boardTetrominoes[j*complexity.getBoardWidth()+i]));
+			}
 		file.addToFile("\n");
 		this.addTofile(Integer.toString(score));
 		file.addToFile(this.getTypeShapeChar(nextShape.getShape()));
@@ -249,4 +257,53 @@ public class FileLogicReplace {
 		return isStoped;
 	}
 	
+	public void setBoard(Tetrominoes [] newBoard){
+		this.boardTetrominoes = newBoard;
 	}
+	
+	public void close(){
+		file.close();
+	}
+
+	@Override
+	public void run() {
+		Socket socket1 = null; 
+		BufferedReader br = null;
+		PrintWriter pw = null;
+		try {
+			socket1 = new Socket("127.0.0.1",25256);
+		} catch (UnknownHostException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		while(true){
+			try {
+				
+		        pw = new PrintWriter(socket1.getOutputStream(), true);
+				br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				switch (br.readLine()){
+					case "CREATE_FILE":
+						this.createFile();
+						this.addTofile("NewGame");
+						pw.println("make");
+						pw.flush();
+						break;
+					case "ADD_TO_FILE":
+						this.addToFile();
+						pw.println("make");
+						pw.flush();
+						break;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
