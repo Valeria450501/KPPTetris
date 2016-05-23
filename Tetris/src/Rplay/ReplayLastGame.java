@@ -4,15 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
-
-import Bot.RandomBot;
 import FileWorking.FileLogicReplace;
 import TetrisLogic.Complexity;
 import TetrisLogic.PaintNextShape;
 import TetrisLogic.PainterBoardGame;
 import TetrisLogic.Shape;
 import TetrisLogic.Shape.Tetrominoes;
-import Windows.PlayGameWindow;
 import Windows.ReplayGameWindow;
 /**Класс отвечает и за сохранение логов, и за их воспроизведение
  * */
@@ -53,8 +50,10 @@ public class ReplayLastGame implements ActionListener {
 		some = new FileLogicReplace();
 		some.letsGoReplay();
 		chosenComplexity = some.getComplexity();
-		boardTetrominoes = new Tetrominoes[chosenComplexity.getBoardWidth()*chosenComplexity.getBoardHeight()];
-		boardNextShape = new Tetrominoes[nextFallingShape.getCountPartsShape()*nextFallingShape.getCountPartsShape()];
+		int boardTetrominoesSize = chosenComplexity.getBoardWidth()*chosenComplexity.getBoardHeight();
+		int boardNextShapeSize = nextFallingShape.getCountPartsShape()*nextFallingShape.getCountPartsShape();
+		boardTetrominoes = new Tetrominoes[boardTetrominoesSize];
+		boardNextShape = new Tetrominoes[boardNextShapeSize];
 		timer = new Timer(1000,this);
 		
 		timer.start();
@@ -172,6 +171,7 @@ public class ReplayLastGame implements ActionListener {
 		score = newScore;
 	}
 	
+	/**Вызываем метод close() объекта FileLogicReplace*/
 	public void close(){
 		some.close();
 	}

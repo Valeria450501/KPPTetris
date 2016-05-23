@@ -9,12 +9,12 @@ public class Complexity {
 	private int boardHeight;
 	/**Время падения фигуры*/
 	private int timeFalling;
-	private typeComplexity choosenTypeComplexity;
+	private TypeComplexity choosenTypeComplexity;
 	/**Тип выбранной сложности*/
-	public enum typeComplexity{
-		Easy,
-		Normal,
-		Hard
+	public enum TypeComplexity{
+		EASY,
+		NORMAL,
+		HARD
 	}
 	/**Конструктор, заполняющий поля с информацией об игре, в зависимости от выбранной сложности
 	 * @param chosenComplexity номер, соответствующий уровню сложности*/
@@ -24,19 +24,19 @@ public class Complexity {
 			boardWidth = 10;
 			boardHeight = 22;
 			timeFalling = 600;	
-			choosenTypeComplexity = typeComplexity.Easy;
+			choosenTypeComplexity = TypeComplexity.EASY;
 			break;
 		case 1:	//normal
 			boardWidth = 15;
 			boardHeight = 33;
 			timeFalling = 400;
-			choosenTypeComplexity = typeComplexity.Normal;
+			choosenTypeComplexity = TypeComplexity.NORMAL;
 			break;
 		case 2:	//hard
 			boardWidth = 20;
 			boardHeight = 44;
 			timeFalling = 150;			
-			choosenTypeComplexity = typeComplexity.Hard;
+			choosenTypeComplexity = TypeComplexity.HARD;
 			break;
 		}
 	}
@@ -58,7 +58,7 @@ public class Complexity {
 	
 	/**Получить тип выбранной сложностиъ
 	 * @return choosenTypeComplexity тип выбранной сложностиъ*/
-	public typeComplexity getTypeComplexity(){
+	public TypeComplexity getTypeComplexity(){
 		return choosenTypeComplexity;
 	}
 }

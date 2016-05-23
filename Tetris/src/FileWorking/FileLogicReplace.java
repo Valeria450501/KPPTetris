@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -68,14 +67,16 @@ public class FileLogicReplace implements Runnable {
 	 * @param toWrite записываемая в файл сложность*/
 	public void writeComplexity(Complexity toWrite){
 		switch(toWrite.getTypeComplexity()){
-		case Easy:
+		case EASY:
 			file.addToFile("Easy"+"\n");
 			break;
-		case Normal:
+		case NORMAL:
 			file.addToFile("Normal"+"\n");
 			break;
-		case Hard:
+		case HARD:
 			file.addToFile("Hard"+"\n");
+			break;
+		default:
 			break;
 		}
 	}
@@ -164,6 +165,8 @@ public class FileLogicReplace implements Runnable {
 			break;
 		case 'M':
 			type = Tetrominoes.MirroredLShape;
+			break;
+		default:
 			break;
 		}
 		return type;
@@ -257,47 +260,55 @@ public class FileLogicReplace implements Runnable {
 		return isStoped;
 	}
 	
+	/**Установка нового игрового поля, которое будет записано в файл
+	 * @param newBoard новое игровое поле*/
 	public void setBoard(Tetrominoes [] newBoard){
 		this.boardTetrominoes = newBoard;
 	}
 	
+	/**Подготовка к закрытию игры*/
 	public void close(){
 		file.close();
 	}
 
+	/**Действия потока клиента*/
 	@Override
 	public void run() {
-		Socket socket1 = null; 
-		BufferedReader br = null;
-		PrintWriter pw = null;
+		Socket socket = null; 
+		BufferedReader bufReader = null;
+		PrintWriter printWriter = null;
 		try {
-			socket1 = new Socket("127.0.0.1",25256);
+			socket = new Socket("127.0.0.1",25256);
 		} catch (UnknownHostException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		while(true){
+		boolean cont = true;
+		while(cont){
 			try {
 				
-		        pw = new PrintWriter(socket1.getOutputStream(), true);
-				br = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			try {
-				switch (br.readLine()){
+		        printWriter = new PrintWriter(socket.getOutputStream(), true);
+				bufReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				switch (bufReader.readLine()){
 					case "CREATE_FILE":
 						this.createFile();
 						this.addTofile("NewGame");
-						pw.println("make");
-						pw.flush();
+						printWriter.println("make");
+						printWriter.flush();
 						break;
 					case "ADD_TO_FILE":
 						this.addToFile();
-						pw.println("make");
-						pw.flush();
+						printWriter.println("make");
+						printWriter.flush();
+						break;
+					case "EXIT":
+						printWriter.close();
+						bufReader.close();
+						socket.close();
+						cont = false;
+						break;
+					default:
 						break;
 				}
 			} catch (IOException e) {
@@ -305,5 +316,4 @@ public class FileLogicReplace implements Runnable {
 			}
 		}
 	}
-
 }

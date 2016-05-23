@@ -59,6 +59,7 @@ public class PlayGameWindow extends JFrame{
 				dispose();
 				tetris.pause();
 				tetris.exitFromGame();
+				tetris.close();
 				MenuMainWindow newMain = new MenuMainWindow();
 				newMain.setVisible(true);
 			}

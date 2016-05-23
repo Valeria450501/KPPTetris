@@ -54,12 +54,16 @@ public class LogicGame implements ActionListener{
 	/**Класс, отвечающий за запись поей для последующего воспроизведения последней игры
 	 * @see PaintNextShape*/
 	private FileLogicReplace fileToWrite;
-
-	static ServerSocket server;
+	/**ServerSocket для общения между клиентом и сервером*/
+	private static ServerSocket server;
+	/**Поток клиента*/
 	private Thread clientThread;
-	private BufferedReader br;
-	private PrintStream ps;
-	private Socket s;
+	/**Объект чтения сообщений от клиента*/
+	private BufferedReader bufRead;
+	/**Объект, отправляющий сообщения клиенту*/
+	private PrintStream printStream;
+	/**Socket для общения между клиентом и сервером*/
+	private Socket socket;
 	
 	/**
 	 *Конструктор.
@@ -126,8 +130,9 @@ public class LogicGame implements ActionListener{
 
 	/**Остановка игрового процесса*/
 	public void pause(){ 
-        if (!isStarted)
+        if (!isStarted){
             return;
+        }
 
         isPaused = !isPaused;
         if (isPaused) {
@@ -152,6 +157,7 @@ public class LogicGame implements ActionListener{
         }
     }
 	
+	/**Действия, которые необходимо выполнить при первой записи в файл*/
 	private void firsTime(){
 		fileToWrite = new FileLogicReplace(boardTetrominoes, getComplexity(), score);
 		clientThread = new Thread(fileToWrite);
@@ -161,19 +167,19 @@ public class LogicGame implements ActionListener{
 		} catch(Exception e) {
 			System.out.println("ERRSOCK+"+e); 
 		}
-			s = null;
+			socket = null;
 			try {
-				s = server.accept(); // Ожидание соединения с клиентом
+				socket = server.accept(); // Ожидание соединения с клиентом
 			} catch(Exception e) {
 				System.out.println("ACCEPTER"+e);
 			}
 			
 			try	{
-				br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-				ps = new PrintStream(s.getOutputStream());
-				ps.println("CREATE_FILE"); 
-				ps.flush();
-				while(!br.readLine().equals("make"));
+				bufRead = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				printStream = new PrintStream(socket.getOutputStream());
+				printStream.println("CREATE_FILE"); 
+				printStream.flush();
+				while(!bufRead.readLine().equals("make"));
 			} catch(Exception e) {
 				System.out.println("PSERROR"+e);
 			}
@@ -188,10 +194,10 @@ public class LogicGame implements ActionListener{
 			nextFallingShape.setRandomShape();
 			fileToWrite.setNextShape(nextFallingShape);
 			fileToWrite.setCurrentShape(currentFallingShape);
-			ps.println("ADD_TO_FILE"); 
-			ps.flush();
+			printStream.println("ADD_TO_FILE"); 
+			printStream.flush();
 			try {
-				while(!br.readLine().equals("make"));
+				while(!bufRead.readLine().equals("make"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -199,10 +205,10 @@ public class LogicGame implements ActionListener{
 			nextFallingShape.setRandomShape();
 			fileToWrite.setCurrentShape(currentFallingShape);
 			fileToWrite.setNextShape(nextFallingShape);
-			ps.println("ADD_TO_FILE"); 
-			ps.flush();		
+			printStream.println("ADD_TO_FILE"); 
+			printStream.flush();		
 			try {
-				while(!br.readLine().equals("make"));
+				while(!bufRead.readLine().equals("make"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -215,13 +221,13 @@ public class LogicGame implements ActionListener{
 			nextFallingShape.setRandomShape();
 			fileToWrite.setNextShape(nextFallingShape);
 			try{
-				ps.println("ADD_TO_FILE"); 
-				ps.flush();
+				printStream.println("ADD_TO_FILE"); 
+				printStream.flush();
 			} catch(Exception e) {
 				System.out.println("PSERROR"+e);
 			}		
 			try {
-				while(!br.readLine().equals("make"));
+				while(!bufRead.readLine().equals("make"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -400,6 +406,27 @@ public class LogicGame implements ActionListener{
 	public PaintNextShape getDrawNextShape(){
 		return drawNextShape;
 	}
-
+	
+	/**Действия, производимые при завершении игры*/
+	public void close(){
+		printStream.println("EXIT"); 
+		printStream.flush();
+		printStream.close();
+		try {
+			bufRead.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			socket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			server.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -72,18 +72,19 @@ public class PainterBoardGame extends JPanel implements Runnable{
 	/**Опледеляется высота сегемента фигуры
 	 * @return высота сегемента фигуры*/
     int squareHeight() { 
-    	if(lastGame == null)
+    	if(lastGame == null){
     		return (int) getSize().getHeight() / logic.getComplexity().getBoardHeight();
-    	else 
+    	} else { 
     		return (int) getSize().getHeight() / lastGame.getComplexity().getBoardHeight();
+    	}
     }
 	
     /**Отображение сегмента фигуры
-     * @param g The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images. 
+     * @param graphics The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images. 
      * @param x координата X
      * @param y координата Y
      * @param shape тип рисуемой фигуры*/
-    private void drawSquare(Graphics g, int x, int y, Tetrominoes shape){ 
+    private void drawSquare(Graphics graphics, int x, int y, Tetrominoes shape){ 
         Color colors[] = { 
         		new Color(0, 0, 0),
         		new Color(204, 102, 102), 
@@ -98,25 +99,25 @@ public class PainterBoardGame extends JPanel implements Runnable{
 
         Color color = colors[shape.ordinal()];
 
-        g.setColor(color);
-        g.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
+        graphics.setColor(color);
+        graphics.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2);
 
-        g.setColor(color.brighter());
-        g.drawLine(x, y + squareHeight() - 1, x, y);
-        g.drawLine(x, y, x + squareWidth() - 1, y);
+        graphics.setColor(color.brighter());
+        graphics.drawLine(x, y + squareHeight() - 1, x, y);
+        graphics.drawLine(x, y, x + squareWidth() - 1, y);
 
-        g.setColor(color.darker());
-        g.drawLine(x + 1, y + squareHeight() - 1,
+        graphics.setColor(color.darker());
+        graphics.drawLine(x + 1, y + squareHeight() - 1,
                          x + squareWidth() - 1, y + squareHeight() - 1);
-        g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
+        graphics.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                          x + squareWidth() - 1, y + 1);
     }
     
     /**Отображение игрового поля
-     * @param g The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
-    public void paint(Graphics g) 
+     * @param graphics The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
+    public void paint(Graphics graphics) 
     { 
-        super.paint(g);
+        super.paint(graphics);
         
         if(lastGame == null){
 	        Dimension size = getSize();
@@ -127,7 +128,7 @@ public class PainterBoardGame extends JPanel implements Runnable{
 	            for (int j = 0; j < logic.getComplexity().getBoardWidth(); ++j) {
 	                Tetrominoes shape = logic.takeTypeCurrentFallingShape(j, logic.getComplexity().getBoardHeight() - i - 1);
 	                if (shape != Tetrominoes.NoShape)
-	                    drawSquare(g, 0 + j * squareWidth(),
+	                    drawSquare(graphics, 0 + j * squareWidth(),
 	                               boardTop + i * squareHeight(), shape);
 	            }
 	        }
@@ -136,7 +137,7 @@ public class PainterBoardGame extends JPanel implements Runnable{
 	            for (int i = 0; i < logic.getCurrentFallingShape().getCountPartsShape(); ++i) {
 	                int x = logic.getCurrentX() + logic.getCurrentFallingShape().getX(i);
 	                int y = logic.getCurrentY() - logic.getCurrentFallingShape().getY(i);
-	                drawSquare(g, 0 + x * squareWidth(),
+	                drawSquare(graphics, 0 + x * squareWidth(),
 	                           boardTop + (logic.getComplexity().getBoardHeight() - y - 1) * squareHeight(),
 	                           logic.getCurrentFallingShape().getShape());
 	            }
@@ -151,7 +152,7 @@ public class PainterBoardGame extends JPanel implements Runnable{
 	            for (int j = 0; j < lastGame.getComplexity().getBoardWidth(); ++j) {
 	                Tetrominoes shape = lastGame.takeTypeCurrentFallingShape(j, lastGame.getComplexity().getBoardHeight() - i - 1);
 	                if (shape != Tetrominoes.NoShape)
-	                    drawSquare(g, 0 + j * squareWidth(),
+	                    drawSquare(graphics, 0 + j * squareWidth(),
 	                               boardTop + i * squareHeight(), shape);
 	            }
 	        }
@@ -161,7 +162,7 @@ public class PainterBoardGame extends JPanel implements Runnable{
 	            for (int i = 0; i < lastGame.getCurrentFallingShape().getCountPartsShape(); ++i) {
 	                int x = currentX + lastGame.getCurrentFallingShape().getX(i);
 	                int y = currentY - lastGame.getCurrentFallingShape().getY(i);
-	                drawSquare(g, 0 + x * squareWidth(),
+	                drawSquare(graphics, 0 + x * squareWidth(),
 	                           boardTop + (lastGame.getComplexity().getBoardHeight() - y - 1) * squareHeight(),
 	                           lastGame.getCurrentFallingShape().getShape());
 	            }

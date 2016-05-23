@@ -34,29 +34,31 @@ public class RandomBot {
 	/**Определение действия над фигурой и выполняет их через объект emptyHandler*/
 	private void getWay(){
 		getTempWay = new Random();
-		position = getTempWay.nextInt(6);
+		position = getTempWay.nextInt(7);
 		emptyHandler = new Handler(logic);
 		
 		switch(position){
-		case 1:
+		case 0:
 			break;
-		case 2:
+		case 1:
 			emptyHandler.moveDown();
 			break;
-		case 3:
+		case 2:
 			emptyHandler.moveLeft();
 			break;
-		case 4:
+		case 3:
 			emptyHandler.moveOneLineDown();
 			break;
-		case 5:
+		case 4:
 			emptyHandler.moveRight();
 			break;
-		case 6:
+		case 5:
 			emptyHandler.moveSpace();
 			break;
-		case 7:
+		case 6:
 			emptyHandler.moveUp();
+			break;
+		default:
 			break;
 		}	
 }

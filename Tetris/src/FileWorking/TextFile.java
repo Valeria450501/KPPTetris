@@ -64,14 +64,16 @@ public class TextFile{
 					String temp = fList[i].substring(4, fList[i].length()-4);
 					try{
 						tempNumber = Integer.valueOf(temp);
-						if(tempNumber > numberOfFile)
+						if(tempNumber > numberOfFile){
 							numberOfFile = tempNumber;
+						}
 					}catch(NumberFormatException e){
 					}
 			}
 			i++;
-			if(i == fList.length)
+			if(i == fList.length){
 				break;
+			}
 		}
 		readLastFile = "Game"+numberOfFile+".txt";
 	}
