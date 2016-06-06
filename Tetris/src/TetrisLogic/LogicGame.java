@@ -152,6 +152,7 @@ public class LogicGame implements ActionListener{
         } else {
         	if(isBot == true){
         		RandomBot bot = new RandomBot(this);
+        		bot.notExeption();
         	}
             oneLineDown();
         }

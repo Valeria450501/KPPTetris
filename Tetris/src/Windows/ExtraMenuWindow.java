@@ -43,10 +43,8 @@ public class ExtraMenuWindow extends JFrame {
 	private Box mainBox;
 	/**Box элементов выбора уровня*/
 	private Box chosenComplexityBox;
-	/**Кнопка выбора воспроизведения самой плохой игры*/
-	private JRadioButton badLastGameButton;
 	/**Кнопка выбора воспроизведения лучшей игры*/
-	private JRadioButton bestLastGameButton;
+	private JRadioButton otherGameButton;
 	/**Кнопка выбора воспроизведения плохой игры*/
 	private JRadioButton lastGameButton;
 	/**Группа кнопок выбора воспроизводимой игры*/
@@ -104,26 +102,20 @@ public class ExtraMenuWindow extends JFrame {
 	
 		mediumLevelsButton.setSelected(true);
 		
-		badLastGameButton = new JRadioButton("Худшая");
-		bestLastGameButton = new JRadioButton("Лучшая");
+		otherGameButton = new JRadioButton("Дгугая");
 		lastGameButton = new JRadioButton("Последняя");
 		chooseGameButtonsGroup = new ButtonGroup();
 		
-		badLastGameButton.setOpaque(false);
-		bestLastGameButton.setOpaque(false);
+		otherGameButton.setOpaque(false);
 		lastGameButton.setOpaque(false);
 		
-
-		badLastGameButton.setFont(new Font(null,Font.BOLD ,15));
-		bestLastGameButton.setFont(new Font(null,Font.BOLD ,15));
+		otherGameButton.setFont(new Font(null,Font.BOLD ,15));
 		lastGameButton.setFont(new Font(null,Font.BOLD ,15));
 		
-		badLastGameButton.setForeground(Color.BLACK);
-		bestLastGameButton.setForeground(Color.BLACK);
+		otherGameButton.setForeground(Color.BLACK);
 		lastGameButton.setForeground(Color.BLACK);
 		
-		chooseGameButtonsGroup.add(badLastGameButton);
-		chooseGameButtonsGroup.add(bestLastGameButton);
+		chooseGameButtonsGroup.add(otherGameButton);
 		chooseGameButtonsGroup.add(lastGameButton);
 	
 		lastGameButton.setSelected(true);
@@ -150,7 +142,7 @@ public class ExtraMenuWindow extends JFrame {
 				PlayGameWindow game = new PlayGameWindow(new Complexity(chooseLevel()));
 				game.playBot();
 				game.setVisible(true);
-				}
+			}
 		});
 		
 		backButton.addActionListener(new ActionListener(){
@@ -164,9 +156,15 @@ public class ExtraMenuWindow extends JFrame {
 		playButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				dispose();
-				ReplayGameWindow some = new ReplayGameWindow();
-				some.setVisible(true);
+				if(chooseGame() == 0){
+					ReplayGameWindow some = new ReplayGameWindow();
+					some.setVisible(true);
 				}
+				else if(chooseGame() == 1){
+					SortGameWindow sort = new SortGameWindow();
+					sort.setVisible(true);
+				}
+			}
 		});
 		
 		botButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -200,8 +198,7 @@ public class ExtraMenuWindow extends JFrame {
 		title.setTitleColor(Color.BLACK);
 		chosenGame.setBorder(title);
 		chosenGame.add(Box.createVerticalStrut(1));
-		chosenGame.add(badLastGameButton);
-		chosenGame.add(bestLastGameButton);
+		chosenGame.add(otherGameButton);
 		chosenGame.add(lastGameButton);
 		chosenGame.add(Box.createVerticalStrut(1));
 		chosenGame.setAlignmentX(JComponent.CENTER_ALIGNMENT);
@@ -241,6 +238,17 @@ public class ExtraMenuWindow extends JFrame {
 			chosenLevel = 1;
 		if(hardLevelsButton.isSelected() == true)
 			chosenLevel = 2;
+		
+		return chosenLevel;
+	}
+	
+	public int chooseGame(){
+		int chosenLevel = 0;
+		
+		if(lastGameButton.isSelected() == true)
+			chosenLevel = 0;
+		if(otherGameButton.isSelected() == true)
+			chosenLevel = 1;
 		
 		return chosenLevel;
 	}

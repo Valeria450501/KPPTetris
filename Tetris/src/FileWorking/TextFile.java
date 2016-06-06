@@ -1,6 +1,5 @@
 package FileWorking;
 import java.io.*;
-import java.util.*;
 
 /**Класс, непосредственно работающий с файлом*/
 public class TextFile{
@@ -11,7 +10,12 @@ public class TextFile{
 	private String readLastFile;
 	private File workingFile;
 	String addingString;
+	String playThisGame = null;
 	public TextFile(){
+	}
+	
+	public TextFile(String playThisGame){
+		this.playThisGame = playThisGame; 
 	}
 	
 	/**Создание/очистка файла для записи/чтения*/
@@ -22,9 +26,10 @@ public class TextFile{
 	}
 	
 	private void findNameToWrite(){
-		String[]fList;      
-		String dirname = "C:\\Users\\User\\Documents\\Eclips_workspace\\Tetris";
-		File fl = new File(dirname);        
+		String[]fList;
+		String path = new File(".").getAbsolutePath();
+		path = path.substring(0, path.length()-2);
+		File fl = new File(path);        
 		fList = fl.list();
 		
 		int numberOfFile = 0;
@@ -51,8 +56,9 @@ public class TextFile{
 	
 	private void findNameOfLastGame(){
 		String[]fList;      
-		String dirname = "C:\\Users\\User\\Documents\\Eclips_workspace\\Tetris";
-		File fl = new File(dirname);
+		String path = new File(".").getAbsolutePath();
+		path = path.substring(0, path.length()-2);
+		File fl = new File(path);
 		        
 		fList = fl.list();
 		
@@ -104,7 +110,11 @@ public class TextFile{
 	
 	/**Поиск начала для считывания*/
 	public void searchBeginning(){
-		findNameOfLastGame();
+		if(playThisGame == null){
+			findNameOfLastGame();
+		}
+		else
+			readLastFile = playThisGame;
 		try {
 			bRead = new BufferedReader(new InputStreamReader(new FileInputStream(readLastFile), "UTF-8"));
 			bRead.readLine();
@@ -120,7 +130,6 @@ public class TextFile{
 		try {
 			line = bRead.readLine();			
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 		return line;
 	}

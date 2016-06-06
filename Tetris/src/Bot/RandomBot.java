@@ -1,10 +1,8 @@
 package Bot;
 
 import java.util.Random;
-import TetrisLogic.Complexity;
+
 import TetrisLogic.LogicGame;
-import TetrisLogic.Shape;
-import TetrisLogic.Shape.Tetrominoes;
 /**
  * <p>Бот, работа которого основывается на случайном выборе действия</p>
  */
@@ -61,5 +59,6 @@ public class RandomBot {
 		default:
 			break;
 		}	
-}
+	}
+	public void notExeption(){}
 }

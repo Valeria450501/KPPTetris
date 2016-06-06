@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import TetrisLogic.Complexity;
 import TetrisLogic.LogicGame;
-import Windows.MenuMainWindow.BgPanel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class PlayGameWindow extends JFrame{
+	private static final long serialVersionUID = 1L;
 	/**Счёт игрока*/
 	private JLabel scoreLabel;
 	/**Кнопка выхода из игры*/
@@ -27,6 +27,7 @@ public class PlayGameWindow extends JFrame{
 	 * @param level выбранная сложность*/
 	public PlayGameWindow(Complexity level){
 		super("Тетрис");
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		tetris = new LogicGame(level,this);;
 		createMainBox();		
 		setContentPane(new BgPanel());
@@ -91,6 +92,8 @@ public class PlayGameWindow extends JFrame{
 	
 	/**<p>Класс, отображающий фон окна PlayGameWindow</p>*/
 	class BgPanel extends JPanel{
+		private static final long serialVersionUID = 1L;
+
 		/**Отображение фона окна
 		 * @param The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
 	    public void paintComponent(Graphics g){

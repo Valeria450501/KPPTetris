@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import Rplay.ReplayOnScala;
 import TetrisLogic.Complexity;
 import TetrisLogic.Shape;
 import TetrisLogic.Shape.Tetrominoes;
@@ -14,6 +15,7 @@ import TetrisLogic.Shape.Tetrominoes;
 public class FileLogicReplace implements Runnable {
 	/**Игровое поле, которое записывают в файл, либо из него считывают*/
 	private Tetrominoes[] boardTetrominoes;
+	private ReplayOnScala replayOnScala; 
 	/**счёт игрока*/
 	private int score;
 	/**Выбранная сложность*/
@@ -35,6 +37,8 @@ public class FileLogicReplace implements Runnable {
 		this.complexity = compexity;
 		boardTetrominoes = new Tetrominoes[complexity.getBoardHeight()*complexity.getBoardWidth()];
 		file = new TextFile();
+		replayOnScala = new ReplayOnScala();
+		replayOnScala.createNewReplay();
 		this.score = score;
 	}
 	
@@ -43,6 +47,12 @@ public class FileLogicReplace implements Runnable {
 		nextShape = new Shape();
 		currentShape = new Shape();
 		file = new TextFile();
+	}
+	
+	public FileLogicReplace(String palyThisGame){
+		nextShape = new Shape();
+		currentShape = new Shape();
+		file = new TextFile(palyThisGame);
 	}
 	
 	/**Прочитать следующее игровое действие*/
@@ -69,12 +79,15 @@ public class FileLogicReplace implements Runnable {
 		switch(toWrite.getTypeComplexity()){
 		case EASY:
 			file.addToFile("Easy"+"\n");
+			replayOnScala.printComplexity("Easy");
 			break;
 		case NORMAL:
 			file.addToFile("Normal"+"\n");
+			replayOnScala.printComplexity("Normal");
 			break;
 		case HARD:
 			file.addToFile("Hard"+"\n");
+			replayOnScala.printComplexity("Hard");
 			break;
 		default:
 			break;
@@ -178,11 +191,16 @@ public class FileLogicReplace implements Runnable {
 		for(int j=0; j < complexity.getBoardHeight(); j++)
 			for(int i=0; i < complexity.getBoardWidth(); i++){
 				file.addToFile(this.getTypeShapeChar(this.boardTetrominoes[j*complexity.getBoardWidth()+i]));
+				replayOnScala.printBoard(Integer.toString(i), Integer.toString(j), this.getTypeShapeChar(this.boardTetrominoes[j*complexity.getBoardWidth()+i]));
 			}
 		file.addToFile("\n");
 		this.addTofile(Integer.toString(score));
+		replayOnScala.printScore(Integer.toString(score));
 		file.addToFile(this.getTypeShapeChar(nextShape.getShape()));
 		file.addToFile(this.getTypeShapeChar(currentShape.getShape()));
+		replayOnScala.printNewShape(currentShape.getShape().toString());
+		replayOnScala.printNextShape(nextShape.getShape().toString());
+		replayOnScala.printNewLine();
 		file.addToFile("\n");
 	}
 	
@@ -269,6 +287,7 @@ public class FileLogicReplace implements Runnable {
 	/**Подготовка к закрытию игры*/
 	public void close(){
 		file.close();
+		replayOnScala.endOfWrite();
 	}
 
 	/**Действия потока клиента*/

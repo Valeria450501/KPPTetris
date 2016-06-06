@@ -19,11 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Rplay.ReplayLastGame;
-import TetrisLogic.Complexity;
-import TetrisLogic.LogicGame;
-import Windows.PlayGameWindow.BgPanel;
 
 public class ReplayGameWindow extends JFrame{
+	private static final long serialVersionUID = 1L;
 	/**Счёт игрока*/
 	private JLabel scoreLabel;
 	/**Кнопка выхода из игры*/
@@ -38,7 +36,26 @@ public class ReplayGameWindow extends JFrame{
 	 * Создание и размещение всех элементов, находящихся в окне.*/
 	public ReplayGameWindow(){
 		super("Тетрис");
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		tetris = new ReplayLastGame(this);
+		createMainBox();		
+		setContentPane(new BgPanel());
+		getContentPane().setLayout(new FlowLayout());
+		Dimension size = new Dimension(300,550); ;
+		tetris.getPainter().setPreferredSize(size);
+		getContentPane().add(tetris.getPainter(), BorderLayout.WEST);
+
+		getContentPane().add(mainBox, BorderLayout.EAST);
+		tetris.getDrawNextShape().setPreferredSize(new Dimension(40,60));
+		this.getContentPane().setBackground(Color.white);
+		setSize(450,600);
+		setResizable(false);
+		this.setLocationRelativeTo(null);
+	}
+	
+	public ReplayGameWindow(String playThissGame){
+		super("Тетрис");
+		tetris = new ReplayLastGame(this, playThissGame);
 		createMainBox();		
 		setContentPane(new BgPanel());
 		getContentPane().setLayout(new FlowLayout());
@@ -95,6 +112,8 @@ public class ReplayGameWindow extends JFrame{
 	
 	/**<p>Класс, отображающий фон окна PlayGameWindow</p>*/
 	class BgPanel extends JPanel{
+		private static final long serialVersionUID = 1L;
+
 		/**Отображение фона окна
 		 * @param The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
 	    public void paintComponent(Graphics g){

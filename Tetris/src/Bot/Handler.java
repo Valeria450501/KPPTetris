@@ -3,7 +3,7 @@ package Bot;
 import TetrisLogic.LogicGame;
 
 /**
- * <p>ќбработчик действий, которые определ€ютс€ в классе MainBot.</p>
+ * <p>ќбработчик действий, которые определ€ютс€ в классе RandomBot.</p>
  * @see RandomBot
 */
 public class Handler {

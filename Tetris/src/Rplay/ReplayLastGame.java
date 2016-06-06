@@ -65,6 +65,28 @@ public class ReplayLastGame implements ActionListener {
 		clearBoardNextShape();
 	}
 	
+	public ReplayLastGame (ReplayGameWindow caused, String playThisGame){
+		this.caused = caused;
+		currentFallingShape = new Shape();
+		nextFallingShape = new Shape();
+		some = new FileLogicReplace(playThisGame);
+		some.letsGoReplay();
+		chosenComplexity = some.getComplexity();
+		int boardTetrominoesSize = chosenComplexity.getBoardWidth()*chosenComplexity.getBoardHeight();
+		int boardNextShapeSize = nextFallingShape.getCountPartsShape()*nextFallingShape.getCountPartsShape();
+		boardTetrominoes = new Tetrominoes[boardTetrominoesSize];
+		boardNextShape = new Tetrominoes[boardNextShapeSize];
+		timer = new Timer(1000,this);
+		
+		timer.start();
+		paintBoard = new PainterBoardGame(this);
+		paintBoard.setVisible(true);;
+		drawNextShape = new PaintNextShape(this);
+		drawNextShape.setVisible(true);
+		clearBoardTetrominoes();
+		clearBoardNextShape();
+	}
+	
 	/**Действия, которые буду повторяться
 	 * @param e объект класса ActionEvent
 	 * @see ActionEvent*/

@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class MenuMainWindow extends JFrame {
+	private static final long serialVersionUID = 1L;
 	/**Кнопка иры бота*/
 	private JButton extraButton;
 	/**Кнопка игры пользователя*/
@@ -86,7 +87,7 @@ public class MenuMainWindow extends JFrame {
 	
 	/**Создание кнопок*/
 	private void createButtons(){
-		extraButton = new JButton("Extra");
+		extraButton = new JButton("Другое");
 		gameButton = new JButton("Играть");
 		exitButton = new JButton("Выход");
 		
@@ -176,11 +177,13 @@ public class MenuMainWindow extends JFrame {
 	/**Получение объекта this
 	 * @return объект this*/
 	public MenuMainWindow getThis(){
-		return this;
+		return this;		
 	}
 	
 	/**<p>Класс, отображающий фон окна MenuMainWindow</p>*/
 	class BgPanel extends JPanel{
+		private static final long serialVersionUID = 1L;
+
 		/**Отображение фона окна
 		 * @param The Graphics class is the abstract base class for all graphics contexts that allow an application to draw onto components that are realized on various devices, as well as onto off-screen images.*/
 	    public void paintComponent(Graphics g){
@@ -190,6 +193,8 @@ public class MenuMainWindow extends JFrame {
 	        } catch (IOException e) {}
 	        g.drawImage(im, 0, 0, null); 
 	    }
+	    
+	    public void notExeption(){}
 	}
 
 	
