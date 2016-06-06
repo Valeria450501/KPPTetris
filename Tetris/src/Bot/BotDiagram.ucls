@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.9" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="Bot.Handler" project="Tetris" file="/Tetris/src/Bot/Handler.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="775" y="488"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="Bot.RandomBot" project="Tetris" file="/Tetris/src/Bot/RandomBot.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1224" y="459"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="TetrisLogic.PaintNextShape" project="Tetris" 
+    file="/Tetris/src/TetrisLogic/PaintNextShape.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="138" y="671"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="TetrisLogic.Complexity" project="Tetris" 
+    file="/Tetris/src/TetrisLogic/Complexity.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="242" y="492"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="TetrisLogic.KeyboardHandler" project="Tetris" 
+    file="/Tetris/src/TetrisLogic/KeyboardHandler.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="405" y="444"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="TetrisLogic.PainterBoardGame" project="Tetris" 
+    file="/Tetris/src/TetrisLogic/PainterBoardGame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1203" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="7" language="java" name="TetrisLogic.Shape.Tetrominoes" project="Tetris" 
+    file="/Tetris/src/TetrisLogic/Shape.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="206" width="205" x="765" y="722"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="8" language="java" name="TetrisLogic.Shape" project="Tetris" file="/Tetris/src/TetrisLogic/Shape.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="385" y="884"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="TetrisLogic.LogicGame" project="Tetris" 
+    file="/Tetris/src/TetrisLogic/LogicGame.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="658" width="269" x="1363" y="396"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="Main.Main" project="Tetris" file="/Tetris/src/Main/Main.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="71" y="49"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="Windows.PlayGameWindow.BgPanel" project="Tetris" 
+    file="/Tetris/src/Windows/PlayGameWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="591" y="441"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="Windows.MenuMainWindow.BgPanel" project="Tetris" 
+    file="/Tetris/src/Windows/MenuMainWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="452" y="47"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="Windows.PlayGameWindow" project="Tetris" 
+    file="/Tetris/src/Windows/PlayGameWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="589" y="603"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="Windows.MenuMainWindow" project="Tetris" 
+    file="/Tetris/src/Windows/MenuMainWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="248" y="172"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="15">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="16" name="currentShape"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="18">    
+    <bendpoint x="1017" y="647"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="19" name="caused"/>      
+      <multiplicity id="20" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="21">    
+    <bendpoint x="946" y="538"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="22" name="logic"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <bendpoint x="886" y="910"/>    
+    <bendpoint x="968" y="988"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="25" name="boardTetrominoes"/>      
+      <multiplicity id="26" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="27">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="12"/>  
+  </nesting>  
+  <association id="28">    
+    <bendpoint x="833" y="567"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="29" name="chosenComplexity"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="31">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <association id="32">    
+    <bendpoint x="1135" y="527"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="33" name="logic"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="36" name="emptyHandler"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <bendpoint x="805" y="803"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="39" name="drawNextShape"/>      
+      <multiplicity id="40" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="42" name="nextShape"/>      
+      <multiplicity id="43" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="45" name="logic"/>      
+      <multiplicity id="46" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <bendpoint x="865" y="910"/>    
+    <bendpoint x="782" y="976"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="48" name="boardNextShape"/>      
+      <multiplicity id="49" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <bendpoint x="514" y="910"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="51" name="nextFallingShape"/>      
+      <multiplicity id="52" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <bendpoint x="1023" y="681"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="54" name="tetris"/>      
+      <multiplicity id="55" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <bendpoint x="830" y="783"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="57" name="tetris"/>      
+      <multiplicity id="58" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="60" name="paintBoard"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="63" name="logic"/>      
+      <multiplicity id="64" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="65">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <association id="66">    
+    <bendpoint x="530" y="966"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="67" name="currentFallingShape"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
